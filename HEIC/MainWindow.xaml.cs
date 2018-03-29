@@ -35,15 +35,12 @@ namespace HEIC
         {
             try
             {
-                List<HEICFile> files = new List<HEICFile>();
-                files.Add(new HEICFile(@"C:\Users\Brice\Documents\Visual Studio 2015\Projects\HEIC\HEIC\IMG_4453.HEIC"));
+                string outputPath = @"C:\Dev\HEIC\HEIC\";
+                HEICFile fi = new HEICFile(outputPath + "IMG_4453.HEIC");
 
-                foreach (var file in files)
-                {
-                    file.ExtractThumbnail();
-                }
+                //fi.ExtractThumbnail();
 
-                HEICFile.ConvertFiles(files.ToList(), @"C:\Users\Brice\Documents\Visual Studio 2015\Projects\HEIC\HEIC", Converter.OutputFormat.JPEG, 95, false, delegate (double progress, string message)
+                fi.Convert(outputPath, "IMG_4453.JPG", Converter.OutputFormat.JPEG, 95, false, delegate (double progress, string message)
                 {
 
                 }, delegate (string error)

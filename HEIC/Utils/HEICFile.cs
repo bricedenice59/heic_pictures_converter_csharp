@@ -32,46 +32,22 @@ namespace HEIC.Utils
             return false;
         }
 
-        public static void ConvertFiles(List<HEICFile> files, string path, Converter.OutputFormat format, uint quality,
-            bool keepEXIF, Action<double, string> progressCallback, Action<string> errorCallback,
-            Action<bool> endCallback)
+        public void Convert(string outPath, string outFileName, Converter.OutputFormat format, uint quality, bool keepEXIF, 
+            Action<double, string> progressCallback, Action<string> errorCallback,Action<bool> endCallback)
         {
-            if (files != null && files.Count != 0)
-            {
+
                 Exception e;
                 new System.Threading.Tasks.Task(delegate
                 {
                     bool success = false;
-                    string ext = (format == Converter.OutputFormat.JPEG) ? "jpg" : "png";
-                    Map_Path_Path map_Path_Path = new Map_Path_Path();
+
+                    HEICFile hEICFile = this;
                     Converter converter = new Converter();
-                    //Converter.CSCallback progressCallback2 = delegate (double progress, string message)
-                    //{
-                    //    if (progressCallback != null)
-                    //    {
-                    //        Application.Current.Dispatcher.BeginInvoke((Action)delegate
-                    //        {
-                    //            progressCallback(progress, message);
-                    //        });
-                    //    }
-                    //};
-                    //converter.SetProgressCallback(progressCallback2);
-                    foreach (HEICFile file in files)
-                    {
-                        try
-                        {
-                            string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file.Name);
-                            map_Path_Path.Add(new Path(file.Path),
-                                new Path(UniqueFilename(fileNameWithoutExtension, ext, path)));
-                        }
-                        catch
-                        {
-                        }
-                    }
 
                     try
                     {
-                        converter.Convert(map_Path_Path, format, quality, keepEXIF);
+                        string finalOutFilePath = System.IO.Path.Combine(outPath, outFileName);
+                        converter.Convert(new Path(Path), new Path(finalOutFilePath), format, quality, keepEXIF);
                         success = true;
                     }
                     catch (Exception ex)
@@ -88,7 +64,6 @@ namespace HEIC.Utils
                         Application.Current.Dispatcher.BeginInvoke((Action) delegate { endCallback(success); });
                     }
                 }).Start();
-            }
         }
 
         private static string UniqueFilename(string name, string ext, string dir)
@@ -108,14 +83,6 @@ namespace HEIC.Utils
             new File(new Path(path));
             Path = path;
             Name = System.IO.Path.GetFileName(path);
-            try
-            {
-                //Icon = Imaging.CreateBitmapSourceFromHIcon(System.Drawing.Icon.ExtractAssociatedIcon(path).Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                //Icon.Freeze();
-            }
-            catch
-            {
-            }
         }
 
         private void OnPropertyChanged(string name)
@@ -133,10 +100,8 @@ namespace HEIC.Utils
                 Converter converter = new Converter();
                 try
                 {
-                    converter.ExtractThumbnail(new Path(Path), new Path(tempFileName),
-                        Converter.OutputFormat.JPEG, 100u);
-                    System.Windows.Media.Imaging.BitmapImage image =
-                        new System.Windows.Media.Imaging.BitmapImage(new Uri(tempFileName));
+                    converter.ExtractThumbnail(new Path(Path), new Path(tempFileName), Converter.OutputFormat.JPEG, 100u);
+                    System.Windows.Media.Imaging.BitmapImage image = new System.Windows.Media.Imaging.BitmapImage(new Uri(tempFileName));
                     image.Freeze();
                     if (image != null)
                     {

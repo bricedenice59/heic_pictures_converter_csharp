@@ -61,74 +61,14 @@ namespace HEIC.Utils
             }
         }
 
-        //public void SetProgressCallback(SWIGTYPE_p_std__functionT_void_fdouble_std__string_const_RF_t callback)
-        //{
-        //    HEICPINVOKE.Converter_SetProgressCallback(swigCPtr, SWIGTYPE_p_std__functionT_void_fdouble_std__string_const_RF_t.getCPtr(callback));
-        //    if (!HEICPINVOKE.SWIGPendingException.Pending)
-        //    {
-        //        return;
-        //    }
-        //    throw HEICPINVOKE.SWIGPendingException.Retrieve();
-        //}
-
         public void Convert(Path heic, Path output, OutputFormat format, uint quality, bool keepEXIF)
         {
             HEICPINVOKE.Converter_Convert__SWIG_0(swigCPtr, Path.getCPtr(heic), Path.getCPtr(output), (int)format, quality, keepEXIF);
-            if (!HEICPINVOKE.SWIGPendingException.Pending)
-            {
-                return;
-            }
-            throw HEICPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        public void Convert(Map_Path_Path files, OutputFormat format, uint quality, bool keepEXIF)
-        {
-            HEICPINVOKE.Converter_Convert__SWIG_1(swigCPtr, Map_Path_Path.getCPtr(files), (int)format, quality, keepEXIF);
-            if (!HEICPINVOKE.SWIGPendingException.Pending)
-            {
-                return;
-            }
-            throw HEICPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        public void Convert(Vector_Path files, Path outputDirectory, OutputFormat format, uint quality, bool keepEXIF)
-        {
-            HEICPINVOKE.Converter_Convert__SWIG_2(swigCPtr, Vector_Path.getCPtr(files), Path.getCPtr(outputDirectory), (int)format, quality, keepEXIF);
-            if (!HEICPINVOKE.SWIGPendingException.Pending)
-            {
-                return;
-            }
-            throw HEICPINVOKE.SWIGPendingException.Retrieve();
         }
 
         public void ExtractThumbnail(Path heic, Path output, OutputFormat format, uint quality)
         {
             HEICPINVOKE.Converter_ExtractThumbnail__SWIG_0(swigCPtr, Path.getCPtr(heic), Path.getCPtr(output), (int)format, quality);
-            if (!HEICPINVOKE.SWIGPendingException.Pending)
-            {
-                return;
-            }
-            throw HEICPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        public void ExtractThumbnail(Map_Path_Path files, OutputFormat format, uint quality)
-        {
-            HEICPINVOKE.Converter_ExtractThumbnail__SWIG_1(swigCPtr, Map_Path_Path.getCPtr(files), (int)format, quality);
-            if (!HEICPINVOKE.SWIGPendingException.Pending)
-            {
-                return;
-            }
-            throw HEICPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        public void ExtractThumbnail(Vector_Path files, Path outputDirectory, OutputFormat format, uint quality)
-        {
-            HEICPINVOKE.Converter_ExtractThumbnail__SWIG_2(swigCPtr, Vector_Path.getCPtr(files), Path.getCPtr(outputDirectory), (int)format, quality);
-            if (!HEICPINVOKE.SWIGPendingException.Pending)
-            {
-                return;
-            }
-            throw HEICPINVOKE.SWIGPendingException.Retrieve();
         }
 
         public Converter()
